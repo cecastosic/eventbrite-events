@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useFetch } from "./hooks/useFetch";
+import { Event } from "./components/Event";
+import { useEffect, useState } from "react";
 
 function App() {
+  const { data: eventsData } = useFetch("/");
+  const [continuation, setContinuation] = useState<string>("");
+  const { data: pageTwoData } = useFetch(`/?continuation=${continuation}`);
+
+  useEffect(() => {
+    if (eventsData) {
+      //todo: check how many pages 
+      //pagination
+      setContinuation(eventsData.pagination.continuation);
+    }
+  }, [eventsData]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <h1>HYF events on Eventbrite</h1>
+      <div className="cards">
+        {eventsData ? (
+          eventsData.events.map((event: any) => {
+            return <Event data={event} key={event.id} />;
+          })
+        ) : (
+          <p>Loading...</p>
+        )}
+         {pageTwoData ? (
+          pageTwoData.events.map((event: any) => {
+            return <Event data={event} key={event.id} />;
+          })
+        ) : (
+          <p>Loading page two...</p>
+        )}
+      </div>
+    </main>
   );
 }
 
