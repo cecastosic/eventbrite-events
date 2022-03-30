@@ -7,32 +7,41 @@ function App() {
   const { data: eventsData } = useFetch("/");
   const [continuation, setContinuation] = useState<string>("");
   const { data: pageTwoData } = useFetch(`/?continuation=${continuation}`);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     if (eventsData) {
-      //todo: check how many pages 
+      //todo: check how many pages
       //pagination
+      setFilteredData([]);
       setContinuation(eventsData.pagination.continuation);
+
+      const filteredEvents = eventsData.events.filter(
+        (event: any) => event.status === "completed"
+      );
+
+      const filteredEventsPageTwo =
+        pageTwoData &&
+        pageTwoData.events.filter((event: any) => event.status === "completed");
+
+      setFilteredData(filteredEvents);
+      
+      filteredEventsPageTwo &&
+        filteredEventsPageTwo.length &&
+        setFilteredData(filteredEvents.concat(filteredEventsPageTwo));
     }
-  }, [eventsData]);
+  }, [eventsData, pageTwoData]);
 
   return (
     <main>
       <h1>HYF events on Eventbrite</h1>
       <div className="cards">
-        {eventsData ? (
-          eventsData.events.map((event: any) => {
+        {filteredData.length ? (
+          filteredData.map((event: any) => {
             return <Event data={event} key={event.id} />;
           })
         ) : (
           <p>Loading...</p>
-        )}
-         {pageTwoData ? (
-          pageTwoData.events.map((event: any) => {
-            return <Event data={event} key={event.id} />;
-          })
-        ) : (
-          <p>Loading page two...</p>
         )}
       </div>
     </main>
