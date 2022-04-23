@@ -1,7 +1,9 @@
 import "./App.css";
 import { useFetch } from "./hooks/useFetch";
-import { Event } from "./components/Event";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Index } from "./components/Index";
+import { List } from "./components/List";
 
 function App() {
   const { data: eventsData } = useFetch("/");
@@ -25,7 +27,7 @@ function App() {
         pageTwoData.events.filter((event: any) => event.status === "completed");
 
       setFilteredData(filteredEvents);
-      
+
       filteredEventsPageTwo &&
         filteredEventsPageTwo.length &&
         setFilteredData(filteredEvents.concat(filteredEventsPageTwo));
@@ -33,18 +35,14 @@ function App() {
   }, [eventsData, pageTwoData]);
 
   return (
-    <main>
-      <h1>HYF events on Eventbrite</h1>
-      <div className="cards">
-        {filteredData.length ? (
-          filteredData.map((event: any) => {
-            return <Event data={event} key={event.id} />;
-          })
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
-    </main>
+    <Router>
+      <main>
+        <Routes>
+          <Route path="/" element={<Index data={filteredData} />} />
+          <Route path="/list" element={<List data={filteredData} />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 

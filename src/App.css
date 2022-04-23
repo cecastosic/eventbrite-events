@@ -36,6 +36,23 @@ body {
   padding: 24px 16px;
 }
 
+table {
+  text-align: left;
+  width: 100%;
+}
+
+thead {
+  background-color: #293a7d;
+  color: #fff;
+  font-weight: bold;
+}
+
+thead th, 
+tbody td {
+  padding: 5px 10px;
+}
+
+
 @media screen and (max-width: 800px) {
   .card {
     width: 40%;
