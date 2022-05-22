@@ -1,4 +1,5 @@
 import { Event } from "./Event";
+import { Loading } from "./Loading";
 
 export const Index = ({ data }: any) => {
   return (
@@ -10,7 +11,7 @@ export const Index = ({ data }: any) => {
             return <Event data={event} key={event.id} />;
           })
         ) : (
-          <p>Loading...</p>
+          <Loading />
         )}
       </div>
     </>

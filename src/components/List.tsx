@@ -1,8 +1,11 @@
 import { useMemo } from "react";
-import { useTable, TableOptions, Column } from "react-table";
+import { useTable, TableOptions, Column, usePagination } from "react-table";
 import { CSVLink } from "react-csv";
+import { Loading } from "./Loading";
+import { Pagination } from "./Pagination";
+import { TableList } from "./TableList";
 
-type Cols = {
+export type Cols = {
   EventName: string;
   Date: string;
   NumberOfAttendees: string;
@@ -10,12 +13,7 @@ type Cols = {
 };
 
 export const List = (fetchedData: any) => {
-  const columns: Column<{
-    EventName: string;
-    Date: string;
-    NumberOfAttendees: string;
-    Location: string;
-  }>[] = useMemo(
+  const columns: Column<Cols>[] = useMemo(
     () => [
       {
         Header: "Event name",
@@ -58,12 +56,27 @@ export const List = (fetchedData: any) => {
   }> = {
     data,
     columns,
+    initialState: { pageIndex: 0, pageSize: 20 },
   };
 
-  const tableInstance = useTable(options);
+  const tableInstance = useTable(options, usePagination);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = tableInstance;
 
   return (
     <>
@@ -71,36 +84,29 @@ export const List = (fetchedData: any) => {
       {data.length ? (
         <>
           <CSVLink data={data}>Export to CSV</CSVLink>
-          <table {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <TableList
+            getTableProps={getTableProps}
+            headerGroups={headerGroups}
+            getTableBodyProps={getTableBodyProps}
+            page={page}
+            prepareRow={prepareRow}
+          />
+          <Pagination
+            page={page}
+            gotoPage={gotoPage}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            pageCount={pageCount}
+            canNextPage={canNextPage}
+            pageIndex={pageIndex}
+            pageOptions={pageOptions}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            canPreviousPage={canPreviousPage}
+          />
         </>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );

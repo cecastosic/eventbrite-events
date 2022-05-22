@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Index } from "./components/Index";
 import { List } from "./components/List";
-import { isConstructorDeclaration } from "typescript";
 
 function App() {
   const { data: eventsData } = useFetch("/");
