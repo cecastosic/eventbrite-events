@@ -1,7 +1,14 @@
-import { UsePaginationInstanceProps, UsePaginationOptions, UsePaginationState,  } from "react-table";
-import { Cols } from "./List";
+import {
+  UsePaginationInstanceProps,
+  UsePaginationOptions,
+  UsePaginationState,
+} from "react-table";
 
-type UsePaginationProps = UsePaginationOptions<Cols> & UsePaginationState<Cols> & UsePaginationInstanceProps<Cols>
+import { Cols } from "../pages/List";
+
+type UsePaginationProps = UsePaginationOptions<Cols> &
+  UsePaginationState<Cols> &
+  UsePaginationInstanceProps<Cols>;
 
 export const Pagination = ({
   gotoPage,
@@ -18,16 +25,16 @@ export const Pagination = ({
   return (
     <div className="pagination">
       <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-        {'\u003c\u003c'}
+        {"\u003c\u003c"}
       </button>{" "}
       <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        {'\u003c'}
+        {"\u003c"}
       </button>{" "}
       <button onClick={() => nextPage()} disabled={!canNextPage}>
-        {'\u003e'}
+        {"\u003e"}
       </button>{" "}
       <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-        {'\u003e\u003e'}
+        {"\u003e\u003e"}
       </button>{" "}
       <span>
         Page{" "}

@@ -12,7 +12,7 @@ export const Search = ({
         name="search"
         placeholder="Type event's name"
         value={value}
-        onChange={e => setSearchQuery(e.target.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
         autoFocus
       />
     </div>

@@ -1,7 +1,76 @@
 body {
-  background-color: #f2f2f2;
+  background-color: #fff;
+  box-sizing: border-box;
   text-align: center;
   font-size: 20px;
+}
+
+h1 {
+  color: #293a7d;
+  font-family: "Space Mono", monospace;
+}
+
+header {
+  background: #fff;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+header .logo {
+  padding: 0.6;
+  margin-top: -0.5em;
+  transform: scale(2) translate(25%, 27%);
+}
+
+nav {
+  align-items: center;
+  font-family: "Space Mono", monospace;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}
+
+nav a {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-right: 1rem;
+}
+
+nav a.selected {
+  text-decoration: underline;
+}
+
+.logo img {
+  height: 2.5rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.load {
+  background-color: #293a7d;
+  border: none;
+  color: #fff;
+  font-family: "Space Mono", monospace;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.7rem 1rem;
+}
+
+main {
+  background-color: #f2f2f2;
+  min-height: 100vh;
+  padding: 4rem 0;
 }
 
 .cards {
@@ -37,7 +106,6 @@ body {
   padding: 1.2rem 0.8rem;
 }
 
-
 .search {
   padding: 0.5rem;
   text-align: center;
@@ -64,7 +132,7 @@ thead {
   font-weight: bold;
 }
 
-thead th, 
+thead th,
 tbody td {
   padding: 0.05rem 0.5rem;
 }

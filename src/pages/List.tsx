@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import { useTable, TableOptions, Column, usePagination } from "react-table";
 import { CSVLink } from "react-csv";
-import { Loading } from "./Loading";
-import { Pagination } from "./Pagination";
-import { TableList } from "./TableList";
+
+import { Loading } from "../components/Loading";
+import { Pagination } from "../components/Pagination";
+import { TableList } from "../components/TableList";
+import { Header } from "../components/Header";
 
 export type Cols = {
   EventName: string;
@@ -80,34 +82,37 @@ export const List = (fetchedData: any) => {
 
   return (
     <>
-      <h1>List of the past events</h1>
-      {data.length ? (
-        <>
-          <CSVLink data={data}>Export to CSV</CSVLink>
-          <TableList
-            getTableProps={getTableProps}
-            headerGroups={headerGroups}
-            getTableBodyProps={getTableBodyProps}
-            page={page}
-            prepareRow={prepareRow}
-          />
-          <Pagination
-            page={page}
-            gotoPage={gotoPage}
-            previousPage={previousPage}
-            nextPage={nextPage}
-            pageCount={pageCount}
-            canNextPage={canNextPage}
-            pageIndex={pageIndex}
-            pageOptions={pageOptions}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            canPreviousPage={canPreviousPage}
-          />
-        </>
-      ) : (
-        <Loading />
-      )}
+      <Header />
+      <main>
+        <h1>List of the past events</h1>
+        {data.length ? (
+          <>
+            <CSVLink data={data}>Export to CSV</CSVLink>
+            <TableList
+              getTableProps={getTableProps}
+              headerGroups={headerGroups}
+              getTableBodyProps={getTableBodyProps}
+              page={page}
+              prepareRow={prepareRow}
+            />
+            <Pagination
+              page={page}
+              gotoPage={gotoPage}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              pageCount={pageCount}
+              canNextPage={canNextPage}
+              pageIndex={pageIndex}
+              pageOptions={pageOptions}
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+              canPreviousPage={canPreviousPage}
+            />
+          </>
+        ) : (
+          <Loading />
+        )}
+      </main>
     </>
   );
 };

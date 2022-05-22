@@ -1,5 +1,6 @@
 import { Row, UseTableInstanceProps } from "react-table";
-import { Cols } from "./List";
+
+import { Cols } from "../pages/List";
 
 type TableListProps = Pick<
   UseTableInstanceProps<Cols>,

@@ -1,6 +1,6 @@
 export const Event = (data: any) => {
   return (
-    <article className="card" key={data.data.id}>
+    <article className="card">
       <img
         src={data.data.logo ? data.data.logo.url : ""}
         alt={data.data.name.text}
