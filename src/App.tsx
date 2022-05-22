@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useFetch } from "./hooks/useFetch";
 
-import { Index } from "./pages/Index";
+import { PastEvents } from "./pages/PastEvents";
 import { UpcomingEvents } from "./pages/UpcomingEvents";
 import { List } from "./pages/List";
 
@@ -14,15 +14,17 @@ function App() {
   const [continuation, setContinuation] = useState<string>("");
 
   const { data: eventsData } = useFetch(
-    `/?continuation=${continuation}&name_filter=${searchQuery}&order_by=start_desc&page_size=28&status=completed`
+    `/?continuation=${continuation}&name_filter=${searchQuery}&order_by=start_desc&page_size=28&status=completed&expand=ticket_classes`
   );
+
+  console.log(eventsData && eventsData.events[0].ticket_classes[0].quantity_sold);
   const { data: upcomingData } = useFetch(
-    `/?name_filter=${searchQueryUpcoming}&page_size=40&order_by=start_desc&status=live`
+    `/?name_filter=${searchQueryUpcoming}&page_size=40&order_by=start_desc&status=live&expand=ticket_classes`
   );
 
   //page size 200 events
   const { data: allData } = useFetch(
-    `/?order_by=start_desc&page_size=200&status=completed`
+    `/?order_by=start_desc&page_size=200&status=completed&expand=ticket_classes`
   );
 
   const [filteredData, setFilteredData] = useState<any>([]);
@@ -53,7 +55,17 @@ function App() {
         <Route
           path="/"
           element={
-            <Index
+            <UpcomingEvents
+              data={upcomingEvents}
+              searchQuery={searchQueryUpcoming}
+              setSearchQuery={setSearchQueryUpcoming}
+            />
+          }
+        />
+        <Route
+          path="/past"
+          element={
+            <PastEvents
               data={filteredData}
               searchQuery={searchQuery}
               setSearchQuery={(s) => {
@@ -65,16 +77,6 @@ function App() {
                 setContinuation(eventsData.pagination.continuation)
               }
               continuation={eventsData?.pagination?.continuation}
-            />
-          }
-        />
-        <Route
-          path="/upcoming"
-          element={
-            <UpcomingEvents
-              data={upcomingEvents}
-              searchQuery={searchQueryUpcoming}
-              setSearchQuery={setSearchQueryUpcoming}
             />
           }
         />

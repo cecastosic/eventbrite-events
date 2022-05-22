@@ -7,7 +7,7 @@ import { NoResults } from "../components/NoResults";
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 
-type IndexProps = {
+type PastEventsProps = {
   data: any;
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -15,13 +15,13 @@ type IndexProps = {
   continuation?: string;
 };
 
-export const Index = ({
+export const PastEvents = ({
   data,
   searchQuery,
   setSearchQuery,
   onLoadClick,
   continuation,
-}: IndexProps) => {
+}: PastEventsProps) => {
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
 

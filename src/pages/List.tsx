@@ -43,7 +43,7 @@ export const List = (fetchedData: any) => {
         return {
           EventName: el.name.text,
           Date: new Date(el.start.utc).toLocaleString(),
-          NumberOfAttendees: el.capacity,
+          NumberOfAttendees: `${el.ticket_classes[0].quantity_sold} / ${el.capacity}`,
           Location: el.online_event ? "Online" : "Real life",
         };
       }),

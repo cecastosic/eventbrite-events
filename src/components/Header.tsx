@@ -37,9 +37,9 @@ export const Header = () => {
       <nav>
         <HeaderLink title="home" page="/" selected={pathname === "/"} />
         <HeaderLink
-          title="upcoming events"
-          page="/upcoming"
-          selected={pathname === "/upcoming"}
+          title="past events"
+          page="/past"
+          selected={pathname === "/past"}
         />
         <HeaderLink title="list" page="/list" selected={pathname === "/list"} />
       </nav>
