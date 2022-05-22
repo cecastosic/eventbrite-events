@@ -44,7 +44,7 @@ export const Graphs = () => {
     <>
       <Header />
       <main className="graphs">
-        <h1>List of the past events</h1>
+        <h1>Online/Onsite events from 2018</h1>
         <ResponsiveContainer width="60%" height="40%">
           <BarChart
             width={500}
