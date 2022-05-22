@@ -5,6 +5,7 @@ import { useFetch } from "./hooks/useFetch";
 import { PastEvents } from "./pages/PastEvents";
 import { UpcomingEvents } from "./pages/UpcomingEvents";
 import { List } from "./pages/List";
+import { Graphs } from "./pages/Graphs";
 
 import "./App.css";
 
@@ -17,7 +18,6 @@ function App() {
     `/?continuation=${continuation}&name_filter=${searchQuery}&order_by=start_desc&page_size=28&status=completed&expand=ticket_classes`
   );
 
-  console.log(eventsData && eventsData.events[0].ticket_classes[0].quantity_sold);
   const { data: upcomingData } = useFetch(
     `/?name_filter=${searchQueryUpcoming}&page_size=40&order_by=start_desc&status=live&expand=ticket_classes`
   );
@@ -81,6 +81,7 @@ function App() {
           }
         />
         <Route path="/list" element={<List data={listData} />} />
+        <Route path="/graphs" element={<Graphs />} />
       </Routes>
     </Router>
   );

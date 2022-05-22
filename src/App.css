@@ -142,6 +142,13 @@ tbody td {
   margin-top: 2rem;
 }
 
+.recharts-responsive-container {
+  display: block;
+  text-align: center;
+  width: 100% !important;
+  height: 60vh !important;
+}
+
 @media screen and (max-width: 800px) {
   .card {
     width: 40%;
@@ -149,6 +156,14 @@ tbody td {
 }
 
 @media screen and (max-width: 600px) {
+  header .logo {
+    margin-top: -0.2rem;
+  }
+
+  .logo img {
+    height: 2rem;
+  }
+
   .card {
     width: 80%;
   }
