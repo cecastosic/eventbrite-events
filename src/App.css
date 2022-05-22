@@ -37,6 +37,21 @@ body {
   padding: 1.2rem 0.8rem;
 }
 
+
+.search {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.search input {
+  border: 1px solid rgba(204, 204, 204, 0.6);
+  border-radius: 0.05rem;
+  font-size: 0.8em;
+  outline: none;
+  padding: 0.8em;
+  width: 20rem;
+}
+
 table {
   font-size: 1rem;
   text-align: left;
@@ -57,10 +72,6 @@ tbody td {
 .pagination {
   font-size: 1rem;
   margin-top: 2rem;
-}
-
-.sort-right {
-  float: right;
 }
 
 @media screen and (max-width: 800px) {

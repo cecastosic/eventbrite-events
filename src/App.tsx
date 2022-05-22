@@ -1,15 +1,18 @@
-import "./App.css";
-import { useFetch } from "./hooks/useFetch";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useFetch } from "./hooks/useFetch";
+
 import { Index } from "./components/Index";
 import { List } from "./components/List";
+
+import "./App.css";
 
 function App() {
   const { data: eventsData } = useFetch("/");
   const [continuation, setContinuation] = useState<string>("");
   const { data: pageTwoData } = useFetch(`/?continuation=${continuation}`);
   const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     if (eventsData) {
@@ -38,7 +41,7 @@ function App() {
               const dateA = new Date(a.start.utc).getTime();
               return dateB - dateA;
             })
-            //to check better way to sort by date
+          //to check better way to sort by date
         );
     }
   }, [eventsData, pageTwoData]);
@@ -47,7 +50,16 @@ function App() {
     <Router>
       <main>
         <Routes>
-          <Route path="/" element={<Index data={filteredData} />} />
+          <Route
+            path="/"
+            element={
+              <Index
+                data={filteredData}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+            }
+          />
           <Route path="/list" element={<List data={filteredData} />} />
         </Routes>
       </main>
