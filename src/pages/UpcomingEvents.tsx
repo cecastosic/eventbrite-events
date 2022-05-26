@@ -30,7 +30,7 @@ export const UpcomingEvents = ({
       <Header />
       <main>
         <h1>HYF events on Eventbrite</h1>
-        <Search value={searchQuery} setSearchQuery={setSearchQuery} />
+        {!loading && <Search value={searchQuery} setSearchQuery={setSearchQuery} />}
         <div className="cards">
           {loading ? (
             <Loading />

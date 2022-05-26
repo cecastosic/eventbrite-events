@@ -1,4 +1,4 @@
-import { Row, UseTableInstanceProps } from "react-table";
+import { Cell, HeaderGroup, Row, UseTableInstanceProps } from "react-table";
 
 import { Cols } from "../pages/List";
 
@@ -17,20 +17,20 @@ export const TableList = ({
   return (
     <table {...getTableProps()}>
       <thead>
-        {headerGroups.map((headerGroup) => (
+        {headerGroups.map((headerGroup:HeaderGroup<Cols>) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
+            {headerGroup.headers.map((column: HeaderGroup<Cols>) => (
               <th {...column.getHeaderProps()}>{column.render("Header")}</th>
             ))}
           </tr>
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {page.map((row) => {
+        {page.map((row: Row<Cols>) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
+              {row.cells.map((cell: Cell<Cols, any>) => {
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
