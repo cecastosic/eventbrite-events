@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -9,62 +10,52 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Header } from "../components/Header";
+import { Loading } from "../components/Loading";
+import filteredDataBasedOnYear from "../helpers/getGraphsData";
 
-const data = [
-  {
-    name: "2018",
-    online: 0,
-    onsite: 3,
-  },
-  {
-    name: "2019",
-    online: 0,
-    onsite: 34,
-  },
-  {
-    name: "2020",
-    online: 25,
-    onsite: 34,
-  },
-  {
-    name: "2021",
-    online: 10,
-    onsite: 7,
-  },
-  {
-    name: "2022",
-    online: 1,
-    onsite: 5,
-  },
-];
+export const Graphs = (fetchedData: any) => {
+  const [graphsData, setGraphsData] = useState<any>([]);
 
-export const Graphs = () => {
+  useEffect(() => {
+    setGraphsData([
+      filteredDataBasedOnYear({ year: 2018, data: fetchedData.data }),
+      filteredDataBasedOnYear({ year: 2019, data: fetchedData.data }),
+      filteredDataBasedOnYear({ year: 2020, data: fetchedData.data }),
+      filteredDataBasedOnYear({ year: 2021, data: fetchedData.data }),
+      filteredDataBasedOnYear({ year: 2022, data: fetchedData.data }),
+    ]);
+  }, [fetchedData]);
+
   return (
     <>
       <Header />
       <main className="graphs">
         <h1>Online/Onsite events from 2018</h1>
-        <ResponsiveContainer width="60%" height="40%">
-          <BarChart
-            width={500}
-            height={400}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="online" fill="#2c3e87" />
-            <Bar dataKey="onsite" fill="#5269c7" />
-          </BarChart>
-        </ResponsiveContainer>
+        {graphsData.length ? (
+          <ResponsiveContainer width="60%" height="40%">
+            <BarChart
+              width={500}
+              height={400}
+              data={graphsData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="online" fill="#2c3e87" />
+              <Bar dataKey="onsite" fill="#5269c7" />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <Loading />
+        )}
       </main>
     </>
   );

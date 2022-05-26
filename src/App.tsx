@@ -84,7 +84,7 @@ function App() {
           }
         />
         <Route path="/list" element={<List data={listData} />} />
-        <Route path="/graphs" element={<Graphs />} />
+        <Route path="/graphs" element={<Graphs data={listData}/>} />
       </Routes>
     </Router>
   );
