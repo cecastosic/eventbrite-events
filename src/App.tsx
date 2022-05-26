@@ -33,7 +33,10 @@ function App() {
 
   useEffect(() => {
     if (eventsData) {
-      setFilteredData([...filteredData, ...eventsData.events]);
+      setFilteredData((filteredData: any) => [
+        ...filteredData,
+        ...eventsData.events,
+      ]);
     }
   }, [eventsData]);
 
