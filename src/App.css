@@ -142,6 +142,15 @@ tbody td {
   margin-top: 2rem;
 }
 
+main.graphs {
+  display: flex;
+  justify-content: center;
+}
+
+.graphs h1 {
+  padding: 1rem 2.3rem;
+}
+
 .recharts-responsive-container {
   display: block;
   text-align: center;

@@ -15,16 +15,17 @@ function App() {
   const [continuation, setContinuation] = useState<string>("");
 
   const { data: eventsData } = useFetch(
-    `/?continuation=${continuation}&name_filter=${searchQuery}&order_by=start_desc&page_size=28&status=completed&expand=ticket_classes`
+    `/?continuation=${continuation}&name_filter=${searchQuery}&order_by=start_desc&page_size=28&status=completed&expand=ticket_classes&event_ids_to_exclude=310030769377,61415199515`
   );
 
   const { data: upcomingData } = useFetch(
     `/?name_filter=${searchQueryUpcoming}&page_size=40&order_by=start_desc&status=live&expand=ticket_classes`
   );
 
-  //page size 200 events
+  // page size 200 events
+  // filter if number of attendees is 0
   const { data: allData } = useFetch(
-    `/?order_by=start_desc&page_size=200&status=completed&expand=ticket_classes`
+    `/?order_by=start_desc&page_size=200&status=completed&expand=ticket_classes&event_ids_to_exclude=310030769377,61415199515`
   );
 
   const [filteredData, setFilteredData] = useState<any>([]);

@@ -8,10 +8,11 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
-import filteredDataBasedOnYear from "../helpers/getGraphsData";
+import filteredDataBasedOnYear from "../helpers/filteredDataBasedOnYear";
 
 export const Graphs = (fetchedData: any) => {
   const [graphsData, setGraphsData] = useState<any>([]);
@@ -30,32 +31,38 @@ export const Graphs = (fetchedData: any) => {
     <>
       <Header />
       <main className="graphs">
-        <h1>Online/Onsite events from 2018</h1>
-        {graphsData.length ? (
-          <ResponsiveContainer width="60%" height="40%">
-            <BarChart
-              width={500}
-              height={400}
-              data={graphsData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="online" fill="#2c3e87" />
-              <Bar dataKey="onsite" fill="#5269c7" />
-            </BarChart>
-          </ResponsiveContainer>
-        ) : (
-          <Loading />
-        )}
+        <div>
+          <h1>Online/Onsite events over the years</h1>
+          {graphsData.length ? (
+            <ResponsiveContainer width="60%" height="40%">
+              <BarChart
+                width={500}
+                height={400}
+                data={graphsData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="online" fill="#2c3e87">
+                  <LabelList dataKey="online" position="top" />
+                </Bar>
+                <Bar dataKey="onsite" fill="#5269c7">
+                  <LabelList dataKey="onsite" position="top" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <Loading />
+          )}
+        </div>
       </main>
     </>
   );

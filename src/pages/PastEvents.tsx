@@ -41,7 +41,7 @@ export const PastEvents = ({
             <Loading />
           ) : filteredData.length ? (
             filteredData.map((event: any) => {
-              return <Event data={event} key={event.id} />;
+              return <Event data={event} key={event.id} showCapacity={false} />;
             })
           ) : (
             <NoResults />
