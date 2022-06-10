@@ -19,10 +19,12 @@ export const UpcomingEvents = ({
 }: UpcomingEventsProps) => {
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   useEffect(() => {
     setFilteredData(data);
-    data.length && setLoading(false);
+    data && data.length > 0 && setLoading(false);
+    data.length === 0 && setNoResults(true);
   }, [data]);
 
   return (
@@ -30,13 +32,15 @@ export const UpcomingEvents = ({
       <Header />
       <main>
         <h1>HYF events on Eventbrite</h1>
-        {!loading && <Search value={searchQuery} setSearchQuery={setSearchQuery} />}
+        {!loading && !noResults && (
+          <Search value={searchQuery} setSearchQuery={setSearchQuery} />
+        )}
         <div className="cards">
           {loading ? (
             <Loading />
           ) : filteredData.length ? (
             filteredData.map((event: any) => {
-              return <Event data={event} key={event.id} showCapacity={true}/>;
+              return <Event data={event} key={event.id} showCapacity={true} />;
             })
           ) : (
             <NoResults />
