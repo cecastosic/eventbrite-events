@@ -41,6 +41,11 @@ export const Header = () => {
           page="/past"
           selected={pathname === "/past"}
         />
+        <HeaderLink
+          title="graphs"
+          page="/graphs"
+          selected={pathname === "/graphs"}
+        />
       </nav>
     </header>
   );
