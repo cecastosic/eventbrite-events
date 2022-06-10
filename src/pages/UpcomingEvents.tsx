@@ -24,7 +24,7 @@ export const UpcomingEvents = ({
   useEffect(() => {
     setFilteredData(data);
     data && data.length > 0 && setLoading(false);
-    data.length === 0 && setNoResults(true);
+    data.length === 0 && setLoading(false); setNoResults(true);
   }, [data]);
 
   return (
