@@ -1,3 +1,5 @@
+import { EventbriteEventData } from "./eventbriteEvents";
+
 export default function filteredDataBasedOnYear({
   year,
   data,
@@ -6,8 +8,11 @@ export default function filteredDataBasedOnYear({
   data: any;
 }) {
   return data
-    .filter((event: any) => new Date(event.end.local).getFullYear() === year)
-    .map((event: any) => {
+    .filter(
+      (event: EventbriteEventData) =>
+        new Date(event.end.local).getFullYear() === year
+    )
+    .map((event: EventbriteEventData) => {
       return { name: year.toString(), isOnline: event.online_event };
     })
     .reduce(

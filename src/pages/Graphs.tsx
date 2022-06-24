@@ -10,11 +10,12 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import { EventsData } from "../helpers/eventbriteEvents";
 import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
 import filteredDataBasedOnYear from "../helpers/filteredDataBasedOnYear";
 
-export const Graphs = (fetchedData: any) => {
+export const Graphs = (fetchedData: EventsData) => {
   const [graphsData, setGraphsData] = useState<any>([]);
 
   useEffect(() => {

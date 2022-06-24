@@ -6,6 +6,7 @@ import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { TableList } from "../components/TableList";
 import { Header } from "../components/Header";
+import { EventbriteEventData, EventsData } from "../helpers/eventbriteEvents";
 
 export type Cols = {
   EventName: string;
@@ -14,7 +15,7 @@ export type Cols = {
   Location: string;
 };
 
-export const List = (fetchedData: any) => {
+export const List = (fetchedData: EventsData) => {
   const columns: Column<Cols>[] = useMemo(
     () => [
       {
@@ -39,7 +40,7 @@ export const List = (fetchedData: any) => {
 
   const data = useMemo(
     (): Cols[] =>
-      fetchedData.data.map((el: any) => {
+      fetchedData.data.map((el: EventbriteEventData) => {
         return {
           EventName: el.name.text,
           Date: new Date(el.start.utc).toLocaleString(),

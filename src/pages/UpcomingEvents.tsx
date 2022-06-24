@@ -5,9 +5,11 @@ import { Loading } from "../components/Loading";
 import { Search } from "../components/Search";
 import { NoResults } from "../components/NoResults";
 import { Header } from "../components/Header";
+import { EventbriteEventData } from "../helpers/eventbriteEvents";
+
 
 type UpcomingEventsProps = {
-  data: any;
+  data: EventbriteEventData[];
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -17,7 +19,7 @@ export const UpcomingEvents = ({
   searchQuery,
   setSearchQuery,
 }: UpcomingEventsProps) => {
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<EventbriteEventData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [noResults, setNoResults] = useState<boolean>(false);
 
@@ -39,7 +41,7 @@ export const UpcomingEvents = ({
           {loading ? (
             <Loading />
           ) : filteredData.length ? (
-            filteredData.map((event: any) => {
+            filteredData.map((event: EventbriteEventData) => {
               return <Event data={event} key={event.id} showCapacity={true} />;
             })
           ) : (

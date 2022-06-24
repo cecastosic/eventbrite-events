@@ -6,9 +6,10 @@ import { Search } from "../components/Search";
 import { NoResults } from "../components/NoResults";
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
+import { EventbriteEventData } from "../helpers/eventbriteEvents";
 
 type PastEventsProps = {
-  data: any;
+  data: EventbriteEventData[];
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   onLoadClick?: () => void;
@@ -22,7 +23,7 @@ export const PastEvents = ({
   onLoadClick,
   continuation,
 }: PastEventsProps) => {
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<EventbriteEventData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export const PastEvents = ({
           {loading ? (
             <Loading />
           ) : filteredData.length ? (
-            filteredData.map((event: any) => {
+            filteredData.map((event: EventbriteEventData) => {
               return <Event data={event} key={event.id} showCapacity={false} />;
             })
           ) : (

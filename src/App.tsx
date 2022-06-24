@@ -8,6 +8,7 @@ import { List } from "./pages/List";
 import { Graphs } from "./pages/Graphs";
 
 import "./App.css";
+import { EventbriteEventData } from "./helpers/eventbriteEvents";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -27,14 +28,13 @@ function App() {
   const { data: allData } = useFetch(
     `/?order_by=start_desc&page_size=200&status=completed&expand=ticket_classes&event_ids_to_exclude=310030769377,61415199515`
   );
-
-  const [filteredData, setFilteredData] = useState<any>([]);
-  const [upcomingEvents, setUpcomingEvents] = useState<any>([]);
-  const [listData, setListData] = useState<any>([]);
+  const [filteredData, setFilteredData] = useState<EventbriteEventData[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<EventbriteEventData[]>([]);
+  const [listData, setListData] = useState<EventbriteEventData[]>([]);
 
   useEffect(() => {
     if (eventsData) {
-      setFilteredData((filteredData: any) => [
+      setFilteredData((filteredData: EventbriteEventData[]) => [
         ...filteredData,
         ...eventsData.events,
       ]);

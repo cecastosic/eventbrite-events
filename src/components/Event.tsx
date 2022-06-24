@@ -1,8 +1,10 @@
+import { EventbriteEventData } from "../helpers/eventbriteEvents";
+
 export const Event = ({
   data,
   showCapacity,
 }: {
-  data: any;
+  data: EventbriteEventData;
   showCapacity: boolean;
 }) => {
   return (
